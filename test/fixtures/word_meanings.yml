@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  meaning: MyString
+  level: 1
+  word: one
+
+two:
+  meaning: MyString
+  level: 1
+  word: two
