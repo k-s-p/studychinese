@@ -1,1 +1,9 @@
 @import "bootstrap";
+
+.page-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 100px;
+}
+
+
