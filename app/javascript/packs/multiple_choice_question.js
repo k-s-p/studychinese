@@ -4,6 +4,7 @@ now_question = 0;
 document.addEventListener('turbolinks:load', function(){
   document.querySelector('#startbutton').addEventListener('click', get_questions);
   document.querySelector('#nextbutton').addEventListener('click', next_question);
+  
 
   document.querySelectorAll('.choice-button').forEach(function(a){
     a.addEventListener('click', check_answer);
@@ -35,7 +36,7 @@ function get_questions() {
     if(radio.checked === true){
       searchParams.append('question_num', radio.value);
     };
-  });
+  });  
   // リクエストを送信
   fetch('/multiplechoicequestions/start?' + searchParams.toString())
     .then(response => response.json())
@@ -50,7 +51,7 @@ function get_questions() {
         document.querySelector('#choice4').innerText = questions[now_question].s4;
         now_question += 1;
         document.getElementById("question-params").style.display = 'none'
-        document.getElementById("question").style.display = 'block'
+        document.getElementById("question").style.display = 'block' // 問題を表示
       }else{
         window.alert("問題がありません。出題条件を変更してください。")
       }
@@ -82,8 +83,6 @@ function next_question(){
     document.querySelector('#choice4').innerText = questions[now_question].s4;
     now_question += 1;
     document.getElementById("question-next").style.display = 'none'
-  }else{
-
   };
 };
 
@@ -102,6 +101,48 @@ function check_answer(event){
   if(obj.innerText != questions[now_question-1].meaning){
     obj.classList.toggle("btn-outline-dark");
     obj.classList.toggle("btn-danger");
-  };
-  document.getElementById("question-next").style.display = 'block'
+    answer_add("×"); //回答結果をテーブルに追加
+  }else{
+    answer_add("〇"); //回答結果をテーブルに追加
+  }
+  
+  if(now_question < Object.keys(questions).length-1){
+    document.getElementById("question-next").style.display = 'block'
+  }else{
+    document.getElementById("question").style.display = 'none' //問題を隠す
+    document.getElementById("question-end").style.display = 'block' //回答結果を表示
+  }
+};
+
+
+//行追加する関数
+function answer_add(judge){
+  const answer_tb = document.getElementById('answer-table');
+
+  //空の行要素を先に作成
+  let tr = document.createElement("tr"); 
+
+  // trに追加する要素を作成
+  let td = document.createElement("td");      //新しいtd要素を作って変数tdに格納
+  td.textContent = "問題"+now_question
+  tr.appendChild(td);         //trにtdを追加
+  
+  td = document.createElement("td");      //新しいtd要素を作って変数tdに格納
+  td.textContent = questions[now_question-1].pinyin
+  tr.appendChild(td);         //trにtdを追加
+
+  td = document.createElement("td");      //新しいtd要素を作って変数tdに格納
+  td.textContent = questions[now_question-1].word
+  tr.appendChild(td);         //trにtdを追加
+
+  td = document.createElement("td");      //新しいtd要素を作って変数tdに格納
+  td.textContent = questions[now_question-1].meaning
+  tr.appendChild(td);         //trにtdを追加
+
+  td = document.createElement("td");      //新しいtd要素を作って変数tdに格納
+  td.textContent = judge
+  tr.appendChild(td);         //trにtdを追加
+
+  //完成したtrをtableに追加
+  answer_tb.appendChild(tr);  
 };
