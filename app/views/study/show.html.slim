@@ -1,0 +1,22 @@
+h1 単語詳細
+
+table.table.table-hover 
+  tbody 
+    tr 
+      th= Word.human_attribute_name(:word)
+      td= @word.word
+    tr  
+      th= Word.human_attribute_name(:pinyin)
+      td= @word.pinyin 
+    tr 
+      th= WordMeaning.human_attribute_name(:meaning)
+      td= @word.meaning 
+    tr 
+      th= WordMeaning.human_attribute_name(:level)
+      td= @word.level 
+
+/ = form_with model: @examples, local: true do |f|
+/   - @examples.each do |example|
+/     .form-group
+/       =f.fields_for "examples[]", example do |ex|
+/         = ex.textfield :example

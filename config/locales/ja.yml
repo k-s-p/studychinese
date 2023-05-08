@@ -1,1 +1,15 @@
 ja:
+  activerecord:
+    models:
+      word: '単語'
+      word_meaning: '単語の意味'
+      studied_word: '学習済み単語'
+    attributes:
+      word:
+        word: '単語'
+        pinyin: 'ピンイン'
+      word_meaning:
+        meaning: '意味'
+        level: 'HSKレベル'
+      studied_word:
+        example: '例文'

@@ -3,6 +3,7 @@ h1 トップページ
   h4 メールアドレス:= current_user.email
   p = link_to "ログアウト", destroy_user_session_path, method: :delete
   p = link_to "4択テスト", multiplechoicequestions_index_path
+  p = link_to "単語学習", study_index_path
 - else
   h4 現在ログインしていません
   p = link_to "ログイン", new_user_session_path, class: 'post' 

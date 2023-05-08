@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   # 四択問題のroutes
   get  "multiplechoicequestions/index"  => "multiple_choice_questions#index"
   get  "multiplechoicequestions/start"  => "multiple_choice_questions#Start"
+
+  # 単語学習機能のroutes
+  resources :study
 end

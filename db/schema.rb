@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_27_134221) do
+ActiveRecord::Schema.define(version: 2023_05_08_071808) do
+
+  create_table "studied_words", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "word_meaning_id", null: false
+    t.string "example"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_studied_words_on_user_id"
+    t.index ["word_meaning_id"], name: "index_studied_words_on_word_meaning_id"
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -41,5 +51,7 @@ ActiveRecord::Schema.define(version: 2023_04_27_134221) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "studied_words", "users"
+  add_foreign_key "studied_words", "word_meanings"
   add_foreign_key "word_meanings", "words"
 end

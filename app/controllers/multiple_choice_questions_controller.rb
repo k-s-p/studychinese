@@ -1,5 +1,5 @@
 class MultipleChoiceQuestionsController < ApplicationController
-  def Index
+  def index
   end
 
   # テスト開始を押したときのアクション

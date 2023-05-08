@@ -1,0 +1,19 @@
+h1 単語一覧
+
+.mb-3
+table.table.table-hover 
+  thead.thead-default 
+    tr 
+      th= Word.human_attribute_name(:word)
+      th= Word.human_attribute_name(:pinyin)
+      th= WordMeaning.human_attribute_name(:meaning)
+      th= WordMeaning.human_attribute_name(:level)
+      th
+  tbody 
+    - @words.each do |word|
+      tr 
+        td= word.word 
+        td= word.pinyin 
+        td= word.meaning 
+        td= word.level 
+        td= link_to '学習', study_path(word.id), class: 'btn btn-primary'
