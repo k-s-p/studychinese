@@ -1,6 +1,7 @@
 h1 四択テスト
 
-section#question_params.user-wrap(style="display: block;")
+section#question-params.user-wrap(style="display: block;")
+  h3 出題条件
   .form-group
     p
       span HSKレベル
@@ -47,12 +48,14 @@ section#question_params.user-wrap(style="display: block;")
         label.form-check-label 100
   button.btn.btn-primary#startbutton 開始
 
-section#question.user-wrap(style="display: block;")
-  p.display-6#pinyin_field pinyin
-  p.display-3#word_field word
+section#question.user-wrap(style="display: none;")
+  p.display-6#pinyin pinyin
+  p.display-3#word word
   div.user-wrap(style="display: flex; justify-content: space-between;")
     button.btn.btn-outline-dark.choice-button#choice1 選択肢1
     button.btn.btn-outline-dark.choice-button#choice2 選択肢2
     button.btn.btn-outline-dark.choice-button#choice3 選択肢3
     button.btn.btn-outline-dark.choice-button#choice4 選択肢4
+
+section#question-next.user-wrap(style="display: none;")
   button.btn.btn-primary#nextbutton 次へ

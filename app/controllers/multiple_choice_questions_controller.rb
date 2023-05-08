@@ -33,6 +33,7 @@ class MultipleChoiceQuestionsController < ApplicationController
           choices.push(meanings[num].meaning)
         end
       end
+      choices.shuffle! # 選択肢をランダムに入れ替える
 
       # 問題のハッシュを作成
       temp = {

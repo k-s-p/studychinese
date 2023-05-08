@@ -41,13 +41,19 @@ function get_questions() {
     .then(response => response.json())
     .then(data => {
       questions = data;
-      document.querySelector('#pinyin_field').innerText = questions[now_question].pinyin;
-      document.querySelector('#word_field').innerText = questions[now_question].word;
-      document.querySelector('#choice1').innerText = questions[now_question].s1;
-      document.querySelector('#choice2').innerText = questions[now_question].s2;
-      document.querySelector('#choice3').innerText = questions[now_question].s3;
-      document.querySelector('#choice4').innerText = questions[now_question].s4;
-      now_question += 1;
+      if(Object.keys(questions).length){
+        document.querySelector('#pinyin').innerText = questions[now_question].pinyin;
+        document.querySelector('#word').innerText = questions[now_question].word;
+        document.querySelector('#choice1').innerText = questions[now_question].s1;
+        document.querySelector('#choice2').innerText = questions[now_question].s2;
+        document.querySelector('#choice3').innerText = questions[now_question].s3;
+        document.querySelector('#choice4').innerText = questions[now_question].s4;
+        now_question += 1;
+        document.getElementById("question-params").style.display = 'none'
+        document.getElementById("question").style.display = 'block'
+      }else{
+        window.alert("問題がありません。出題条件を変更してください。")
+      }
     })
     .catch(error => console.log(error.message)); //エラー発生時の処理が必要
 }
@@ -68,13 +74,14 @@ function next_question(){
   });
 
   if(now_question != Object.keys(questions).length){
-    document.querySelector('#pinyin_field').innerText = questions[now_question].pinyin;
-    document.querySelector('#word_field').innerText = questions[now_question].word;
+    document.querySelector('#pinyin').innerText = questions[now_question].pinyin;
+    document.querySelector('#word').innerText = questions[now_question].word;
     document.querySelector('#choice1').innerText = questions[now_question].s1;
     document.querySelector('#choice2').innerText = questions[now_question].s2;
     document.querySelector('#choice3').innerText = questions[now_question].s3;
     document.querySelector('#choice4').innerText = questions[now_question].s4;
     now_question += 1;
+    document.getElementById("question-next").style.display = 'none'
   }else{
 
   };
@@ -96,4 +103,5 @@ function check_answer(event){
     obj.classList.toggle("btn-outline-dark");
     obj.classList.toggle("btn-danger");
   };
+  document.getElementById("question-next").style.display = 'block'
 };
