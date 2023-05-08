@@ -23,9 +23,7 @@ function get_questions() {
       hsklevels.push(checkbox.value);
     };
   });
-  for (let item of hsklevels) {
-    searchParams.append('hsklevel', item);
-  };
+  searchParams.append('hsklevel', hsklevels);
   let studied_checkbox = document.getElementById("chk-studied"); //学習済み問題か
   if(studied_checkbox.checked){
     searchParams.append('studied', '1');
@@ -35,10 +33,9 @@ function get_questions() {
   let question_num_radio = document.getElementsByName('radio1'); //問題数の指定
   question_num_radio.forEach(radio => {
     if(radio.checked === true){
-      searchParams.append('studied', radio.value);
+      searchParams.append('question_num', radio.value);
     };
   });
-
   // リクエストを送信
   fetch('/multiplechoicequestions/start?' + searchParams.toString())
     .then(response => response.json())

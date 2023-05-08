@@ -2,9 +2,13 @@ class MultipleChoiceQuestionsController < ApplicationController
   def Index
   end
 
-  def Start #テスト開始を押したとき
-    study_level = 1
-    study_limit = 5
+  # テスト開始を押したときのアクション
+  def Start
+
+    # パラメータを取得
+    study_level = params[:hsklevel].split(',') # hskのレベル
+    study_limit = params[:question_num] # 問題数
+    studied = params[:studied] # 学習済みかどうか
 
     # データ取得
     words = Word.joins(:word_meanings).select('word_meanings.id, word, pinyin, meaning, level').where(word_meanings: {level: study_level}).order("RAND()").limit(study_limit)
@@ -16,21 +20,21 @@ class MultipleChoiceQuestionsController < ApplicationController
     cnt = 0
     words.each do |word|
       num_set = Set.new
+      # ランダムに問題の選択肢を取得（被ると困るので一つ余分に4つ取得しておく)
       while num_set.length < 4
         num_set.add(rand(meanings_len))
       end
-
       choices = [word.meaning]
       num_set.each do |num|
         if choices.length == 4
           break
         end
-
         if meanings[num].id != word.id
           choices.push(meanings[num].meaning)
         end
       end
 
+      # 問題のハッシュを作成
       temp = {
         id: word.id,
         word: word.word,
@@ -47,6 +51,7 @@ class MultipleChoiceQuestionsController < ApplicationController
       cnt += 1
     end
 
+    # 問題データをJSONで返信する
     respond_to do |format|
       format.json { render json: problems.to_json }
     end
