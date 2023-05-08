@@ -1,11 +1,56 @@
 h1 四択テスト
 
-button.btn.btn-primary#startbutton 開始
+section#question_params.user-wrap(style="display: block;")
+  .form-group
+    p
+      span HSKレベル
+      .form-check.form-check-inline
+        input.form-check-input.hsklevel#chk1 type="checkbox" value="1"
+        label.form-check-label 1
+      .form-check.form-check-inline 
+        input.form-check-input.hsklevel#chk2 type="checkbox" value="2"
+        label.form-check-label 2
+      .form-check.form-check-inline
+        input.form-check-input.hsklevel#chk3 type="checkbox" value="3"
+        label.form-check-label 3
+      .form-check.form-check-inline
+        input.form-check-input.hsklevel#chk4 type="checkbox" value="4"
+        label.form-check-label 4
+      .form-check.form-check-inline
+        input.form-check-input.hsklevel#chk5 type="checkbox" value="5"
+        label.form-check-label 5
+      .form-check.form-check-inline
+        input.form-check-input.hsklevel#chk6 type="checkbox" value="6"
+        label.form-check-label 6
+  .form-group
+    p
+      .form-check
+        input.form-check-input#chk-studied type="checkbox"
+        label.form-check-label 学習済み単語
+  .form-group
+    p
+      span 問題数
+      .form-check.form-check-inline 
+        input.form-check-input#radio1a type="radio" name="radio1" value="10"
+        label.form-check-label 10
+      .form-check.form-check-inline
+        input.form-check-input#radio1b type="radio" name="radio1" value="15" checked="true"
+        label.form-check-label 15
+      .form-check.form-check-inline
+        input.form-check-input#radio1c type="radio"name="radio1" value="30"
+        label.form-check-label 30
+      .form-check.form-check-inline
+        input.form-check-input#radio1d type="radio" name="radio1" value="50"
+        label.form-check-label 50
+      .form-check.form-check-inline
+        input.form-check-input#radio1e type="radio" name="radio1" value="100"
+        label.form-check-label 100
+  button.btn.btn-primary#startbutton 開始
 
 section#question.user-wrap(style="display: block;")
-  p#pinyin_field pinyin
-  p#word_field word
-  div.user-wrap(style="display: flex;")
+  p.display-6#pinyin_field pinyin
+  p.display-3#word_field word
+  div.user-wrap(style="display: flex; justify-content: space-between;")
     button.btn.btn-outline-dark.choice-button#choice1 選択肢1
     button.btn.btn-outline-dark.choice-button#choice2 選択肢2
     button.btn.btn-outline-dark.choice-button#choice3 選択肢3
