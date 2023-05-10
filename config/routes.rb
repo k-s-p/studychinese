@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   get  "multiplechoicequestions/start"  => "multiple_choice_questions#Start"
 
   # 単語学習機能のroutes
-  resources :study
+  resources :study, only: [:index, :show]
+  post "study/register" => "study#create_or_update"
 end
