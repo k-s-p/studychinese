@@ -11,7 +11,11 @@ class MultipleChoiceQuestionsController < ApplicationController
     studied = params[:studied] # 学習済みかどうか
 
     # データ取得
-    words = Word.joins(:word_meanings).select('word_meanings.id, word, pinyin, meaning, level').where(word_meanings: {level: study_level}).order("RAND()").limit(study_limit)
+    if studied
+      words = Word.joins(word_meanings: :studied_words).select('word_meanings.id, word, pinyin, meaning, level').distinct.where(word_meanings: {level: study_level}, studied_words: {user_id: current_user.id}).order("RAND()").limit(study_limit)
+    else
+      words = Word.joins(:word_meanings).select('word_meanings.id, word, pinyin, meaning, level').where(word_meanings: {level: study_level}).order("RAND()").limit(study_limit)
+    end
     meanings = WordMeaning.select('id, meaning').where(level: study_level)
     meanings_len = meanings.length
 

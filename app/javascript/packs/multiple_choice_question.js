@@ -49,7 +49,6 @@ function get_questions() {
         document.querySelector('#choice2').innerText = questions[now_question].s2;
         document.querySelector('#choice3').innerText = questions[now_question].s3;
         document.querySelector('#choice4').innerText = questions[now_question].s4;
-        now_question += 1;
         document.getElementById("question-params").style.display = 'none'
         document.getElementById("question").style.display = 'block' // 問題を表示
       }else{
@@ -74,14 +73,14 @@ function next_question(){
     };
   });
 
-  if(now_question != Object.keys(questions).length){
+  if(now_question < Object.keys(questions).length){
+    now_question += 1;
     document.querySelector('#pinyin').innerText = questions[now_question].pinyin;
     document.querySelector('#word').innerText = questions[now_question].word;
     document.querySelector('#choice1').innerText = questions[now_question].s1;
     document.querySelector('#choice2').innerText = questions[now_question].s2;
     document.querySelector('#choice3').innerText = questions[now_question].s3;
     document.querySelector('#choice4').innerText = questions[now_question].s4;
-    now_question += 1;
     document.getElementById("question-next").style.display = 'none'
   };
 };
@@ -93,12 +92,12 @@ function check_answer(event){
   let choices = document.querySelectorAll('.choice-button');
   choices.forEach(choice => {
     choice.disabled = true;
-    if(choice.innerText === questions[now_question-1].meaning){
+    if(choice.innerText === questions[now_question].meaning){
       choice.classList.toggle("btn-outline-dark");
       choice.classList.toggle("btn-success");
     };
   });
-  if(obj.innerText != questions[now_question-1].meaning){
+  if(obj.innerText != questions[now_question].meaning){
     obj.classList.toggle("btn-outline-dark");
     obj.classList.toggle("btn-danger");
     answer_add("×"); //回答結果をテーブルに追加
@@ -124,19 +123,19 @@ function answer_add(judge){
 
   // trに追加する要素を作成
   let td = document.createElement("td");      //新しいtd要素を作って変数tdに格納
-  td.textContent = "問題"+now_question
+  td.textContent = "問題"+(now_question+1)
   tr.appendChild(td);         //trにtdを追加
   
   td = document.createElement("td");      //新しいtd要素を作って変数tdに格納
-  td.textContent = questions[now_question-1].pinyin
+  td.textContent = questions[now_question].pinyin
   tr.appendChild(td);         //trにtdを追加
 
   td = document.createElement("td");      //新しいtd要素を作って変数tdに格納
-  td.textContent = questions[now_question-1].word
+  td.textContent = questions[now_question].word
   tr.appendChild(td);         //trにtdを追加
 
   td = document.createElement("td");      //新しいtd要素を作って変数tdに格納
-  td.textContent = questions[now_question-1].meaning
+  td.textContent = questions[now_question].meaning
   tr.appendChild(td);         //trにtdを追加
 
   td = document.createElement("td");      //新しいtd要素を作って変数tdに格納
