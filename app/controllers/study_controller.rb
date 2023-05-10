@@ -1,6 +1,16 @@
 class StudyController < ApplicationController
   def index
-    @words = Word.joins(:word_meanings).select('word_meanings.id, word, pinyin, meaning, level')
+    # @words = Word.joins(:word_meanings).select('word_meanings.id, word, pinyin, meaning, level')
+    # 一覧取得時に学習済み単語があるかどうかも取得しておく
+    @words = WordMeaning.select("word_meanings.id, words.word AS tango, words.pinyin AS pinyin, word_meanings.meaning, word_meanings.level, A.word_meaning_id").joins(:word).joins("
+              LEFT JOIN (
+                SELECT studied_words.word_meaning_id, studied_words.user_id
+                FROM studied_words
+                GROUP BY studied_words.word_meaning_id, studied_words.user_id
+              ) AS A 
+              ON A.word_meaning_id = word_meanings.id
+              AND A.user_id = #{current_user.id}
+            ")
   end
 
   def show

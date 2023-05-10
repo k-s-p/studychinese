@@ -11,9 +11,17 @@ table.table.table-hover
       th
   tbody 
     - @words.each do |word|
-      tr 
-        td= word.word 
-        td= word.pinyin 
-        td= word.meaning 
-        td= word.level 
-        td= link_to '学習', study_path(word.id), class: 'btn btn-primary'
+      - if word.word_meaning_id?
+        tr.user-wrap(style="background-color: #ddffdd;")
+          td= word.tango 
+          td= word.pinyin 
+          td= word.meaning 
+          td= word.level 
+          td= link_to '学習', study_path(word.id), class: 'btn btn-primary'
+      - else 
+        tr 
+          td= word.tango 
+          td= word.pinyin 
+          td= word.meaning 
+          td= word.level 
+          td= link_to '学習', study_path(word.id), class: 'btn btn-primary'
