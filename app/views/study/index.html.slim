@@ -1,6 +1,31 @@
 h1 単語一覧
 
+div.border.mb-4
+  = form_with url: study_index_path, local: true,method: :get do |f|
+    span HSKレベル
+    br
+    .form-group.mb-3
+      = f.check_box :hsklevel, {multiple: true, checked: params[:hsklevel].include?("1")}, "1", nil
+      = f.label "1", class: "mx-1"
+      = f.check_box :hsklevel, {multiple: true, checked: params[:hsklevel].include?("2")}, "2", nil
+      = f.label "2", class: "mx-1"
+      = f.check_box :hsklevel, {multiple: true, checked: params[:hsklevel].include?("3")}, "3", nil 
+      = f.label "3", class: "mx-1"
+      = f.check_box :hsklevel, {multiple: true, checked: params[:hsklevel].include?("4")}, "4", nil
+      = f.label "4", class: "mx-1"
+      = f.check_box :hsklevel, {multiple: true, checked: params[:hsklevel].include?("5")}, "5", nil 
+      = f.label "5", class: "mx-1"
+      = f.check_box :hsklevel, {multiple: true, checked: params[:hsklevel].include?("6")}, "6", nil
+      = f.label "6", class: "mx-1"
+    .form-group.mb-3
+      = f.check_box :studied, {checked: params[:studied] == "1"}
+      = f.label "学習済み単語", class: "mx-1"
+    =f.submit "検索", class: "btn btn-primary"
+
+
 .mb-3
+  = paginate @words
+  = page_entries_info @words
 table.table.table-hover 
   thead.thead-default 
     tr 

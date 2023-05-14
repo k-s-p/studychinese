@@ -1,46 +1,49 @@
 .notifications
   - flash.each do |key, value|
-    = content_tag(:div, value, class: key)
+    = content_tag(:div, value, class: "alert alert-#{key}")
 
-h1 単語詳細
+.container.mt-4
+  .row.justify-content-center
+    .col-md-8
+      h1.text-center.pt-3 単語詳細
+      table.table.table-hover 
+        tbody 
+          tr 
+            th= Word.human_attribute_name(:word)
+            td= @word.word
+          tr  
+            th= Word.human_attribute_name(:pinyin)
+            td= @word.pinyin 
+          tr 
+            th= WordMeaning.human_attribute_name(:meaning)
+            td= @word.meaning 
+          tr 
+            th= WordMeaning.human_attribute_name(:level)
+            td= @word.level 
 
-table.table.table-hover 
-  tbody 
-    tr 
-      th= Word.human_attribute_name(:word)
-      td= @word.word
-    tr  
-      th= Word.human_attribute_name(:pinyin)
-      td= @word.pinyin 
-    tr 
-      th= WordMeaning.human_attribute_name(:meaning)
-      td= @word.meaning 
-    tr 
-      th= WordMeaning.human_attribute_name(:level)
-      td= @word.level 
-
-= form_with url: study_register_path,local: true, method: 'post' do |form|
-  h3 例文
-  - if @examples.present?
-    .form-group 
-      = form.hidden_field :WordMeaning_id, value: @word.id
-    .form-group 
-      label 例文1
-      = form.text_field :example1, class: 'form-control', value: @examples[0].example
-      = form.hidden_field :id1, value: @examples[0].id
-    .form-group 
-      label 例文2
-      = form.text_field :example2, class: 'form-control', value: @examples[1].example
-      = form.hidden_field :id2, value: @examples[1].id
-  - else
-    .form-group 
-      = form.hidden_field :WordMeaning_id, value: @word.id
-    .form-group 
-      label 例文1
-      = form.text_field :example1, class: 'form-control'
-    .form-group 
-      label 例文2
-      = form.text_field :example2, class: 'form-control'
-  = form.submit '登録'
-
-= link_to '戻る', study_index_path, class: 'btn btn-primary'
+      = form_with url: study_register_path,local: true, method: 'post' do |form|
+        .card.my-4
+          .card-body
+            h3.text-center 例文
+            - if @examples.present?
+              = form.hidden_field :WordMeaning_id, value: @word.id
+              .form-group 
+                label.form-label 例文1
+                = form.text_field :example1, class: 'form-control mb-2', value: @examples[0].example
+                = form.hidden_field :id1, value: @examples[0].id
+              .form-group 
+                label.form-label 例文2
+                = form.text_field :example2, class: 'form-control mb-2', value: @examples[1].example
+                = form.hidden_field :id2, value: @examples[1].id
+            - else
+              .form-group 
+                = form.hidden_field :WordMeaning_id, value: @word.id
+              .form-group 
+                label.form-label 例文1
+                = form.text_field :example1, class: 'form-control'
+              .form-group 
+                label.form-label 例文2
+                = form.text_field :example2, class: 'form-control'
+            = form.submit '登録', class: 'btn btn-primary text-white d-block mx-auto mt-3'
+            .form-group.text-center
+              = link_to '戻る', :back, class: 'btn btn-secondary mt-3'

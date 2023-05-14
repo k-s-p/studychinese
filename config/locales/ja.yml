@@ -2,7 +2,7 @@ ja:
   activerecord:
     models:
       word: '単語'
-      word_meaning: '単語の意味'
+      word_meaning: '単語'
       studied_word: '学習済み単語'
     attributes:
       word:
