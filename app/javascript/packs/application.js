@@ -17,3 +17,5 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 import "./multiple_choice_question"
+import "./study_index"
+import "./study_show"

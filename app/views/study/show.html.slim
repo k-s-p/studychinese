@@ -1,7 +1,7 @@
 .notifications
   - flash.each do |key, value|
     = content_tag(:div, value, class: "alert alert-#{key}")
-
+button.btn.btn-secondary.mt-3#study_back_button 戻る
 .container.mt-4
   .row.justify-content-center
     .col-md-8
@@ -45,5 +45,3 @@
                 label.form-label 例文2
                 = form.text_field :example2, class: 'form-control'
             = form.submit '登録', class: 'btn btn-primary text-white d-block mx-auto mt-3'
-            .form-group.text-center
-              = link_to '戻る', :back, class: 'btn btn-secondary mt-3'
