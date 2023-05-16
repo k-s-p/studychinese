@@ -39,11 +39,13 @@ class StudyController < ApplicationController
     end
   end
 
+  # 単語の詳細ページを表示
   def show
     @word = Word.joins(:word_meanings).select('word_meanings.id, word, pinyin, meaning, hsklevel').find_by(word_meanings: {id: params[:id]})
     @examples = WordMeaning.left_joins(:studied_words).select("studied_words.id, studied_words.example").where(studied_words: {user_id: current_user.id}, id: params[:id])
   end
 
+  # 単語に例文を登録する処理
   def create_or_update
     if params[:id1]
       example = StudiedWord.find(params[:id1])

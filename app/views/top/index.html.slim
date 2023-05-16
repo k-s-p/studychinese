@@ -13,19 +13,19 @@ div.container-fluid
             div.card.h-100
               div.card-body.text-center
                 h5.card-title 単語学習
-                p.card-text 中国語単語の学習ページです。HSK1から6級の各単語を学習して、自分で例文を入力することができます。
+                p.card-text 中国語単語の学習ページです。<br>HSK1から6級の各単語を学習して、<br>自分で例文を入力することができます。
                 = link_to "単語学習", study_index_path(hsklevel: ["1"]), class: 'btn btn-primary'
           div.col-md-4
             div.card.h-100
               div.card-body.text-center
                 h5.card-title 4択問題
-                p.card-text 中国語の4択問題に挑戦！！HSKレベルを選択して4択問題を解くことができます。さらに、単語学習で学習済みの単語のみ出題することもできます。
+                p.card-text 中国語の4択問題に挑戦！！<br>HSKレベルを選択して4択問題を解くことができます。<br>単語学習で学習済みの単語のみ出題することもできます。
                 = link_to "4択問題", multiplechoicequestions_index_path, class: 'btn btn-primary'
           div.col-md-4
             div.card.h-100
               div.card-body.text-center
                 h5.card-title 穴埋め問題
-                p.card-text 中国語の穴埋め問題に挑戦！！単語学習で入力した例文から穴埋め問題が出題されます。
+                p.card-text 中国語の穴埋め問題に挑戦！！<br>単語学習で入力した例文から穴埋め問題が出題されます。
                 = link_to "穴埋め問題", fillintheblankquestions_index_path, class: 'btn btn-primary'
       - else
         div.row.justify-content-center.my-4
