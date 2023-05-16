@@ -18,8 +18,8 @@ button.btn.btn-secondary.mt-3#study_back_button 戻る
             th= WordMeaning.human_attribute_name(:meaning)
             td= @word.meaning 
           tr 
-            th= WordMeaning.human_attribute_name(:level)
-            td= @word.level 
+            th= WordMeaning.human_attribute_name(:hsklevel)
+            td= @word.hsklevel 
 
       = form_with url: study_register_path,local: true, method: 'post' do |form|
         .card.my-4

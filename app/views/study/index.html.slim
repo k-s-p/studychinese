@@ -34,7 +34,7 @@ table.table.table-hover
       th= Word.human_attribute_name(:word)
       th= Word.human_attribute_name(:pinyin)
       th= WordMeaning.human_attribute_name(:meaning)
-      th= WordMeaning.human_attribute_name(:level)
+      th= WordMeaning.human_attribute_name(:hsklevel)
       th
   tbody 
     - @words.each do |word|
@@ -43,12 +43,12 @@ table.table.table-hover
           td= word.tango 
           td= word.pinyin 
           td= word.meaning 
-          td= word.level 
+          td= word.hsklevel 
           td= link_to '学習', study_path(word.id), class: 'btn btn-primary study_button'
       - else 
         tr 
           td= word.tango 
           td= word.pinyin 
           td= word.meaning 
-          td= word.level 
+          td= word.hsklevel 
           td= link_to '学習', study_path(word.id), class: 'btn btn-primary study_button'

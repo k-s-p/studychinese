@@ -10,6 +10,6 @@ ja:
         pinyin: 'ピンイン'
       word_meaning:
         meaning: '意味'
-        level: 'HSKレベル'
+        hsklevel: 'HSKレベル'
       studied_word:
         example: '例文'

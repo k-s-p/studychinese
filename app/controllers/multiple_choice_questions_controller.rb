@@ -12,11 +12,11 @@ class MultipleChoiceQuestionsController < ApplicationController
 
     # データ取得
     if studied === "1"
-      words = Word.joins(word_meanings: :studied_words).select('word_meanings.id, word, pinyin, meaning, level').distinct.where(word_meanings: {level: study_level}, studied_words: {user_id: current_user.id}).order("RAND()").limit(study_limit)
+      words = Word.joins(word_meanings: :studied_words).select('word_meanings.id, word, pinyin, meaning, hsklevel').distinct.where(word_meanings: {hsklevel: study_level}, studied_words: {user_id: current_user.id}).order("RAND()").limit(study_limit)
     else
-      words = Word.joins(:word_meanings).select('word_meanings.id, word, pinyin, meaning, level').where(word_meanings: {level: study_level}).order("RAND()").limit(study_limit)
+      words = Word.joins(:word_meanings).select('word_meanings.id, word, pinyin, meaning, hsklevel').where(word_meanings: {hsklevel: study_level}).order("RAND()").limit(study_limit)
     end
-    meanings = WordMeaning.select('id, meaning').where(level: study_level)
+    meanings = WordMeaning.select('id, meaning').where(hsklevel: study_level)
     meanings_len = meanings.length
 
     #問題用ハッシュを作成
@@ -45,7 +45,7 @@ class MultipleChoiceQuestionsController < ApplicationController
         word: word.word,
         pinyin: word.pinyin,
         meaning: word.meaning,
-        level: word.level,
+        level: word.hsklevel,
         s1: choices[0],
         s2: choices[1],
         s3: choices[2],

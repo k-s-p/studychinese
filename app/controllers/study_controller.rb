@@ -6,7 +6,7 @@ class StudyController < ApplicationController
     # byebug
     # 学習済み単語のみ検索の場合は、inner joinでつなぐ
     if studied == "1"
-      @words = WordMeaning.select("word_meanings.id, words.word AS tango, words.pinyin AS pinyin, word_meanings.meaning, word_meanings.level, A.word_meaning_id")
+      @words = WordMeaning.select("word_meanings.id, words.word AS tango, words.pinyin AS pinyin, word_meanings.meaning, word_meanings.hsklevel, A.word_meaning_id")
       .joins(:word)
       .joins("
                 INNER JOIN (
@@ -17,11 +17,12 @@ class StudyController < ApplicationController
                 ON A.word_meaning_id = word_meanings.id
                 AND A.user_id = #{current_user.id}
               ")
-      .where(word_meanings: {level: hskleveles})
+      .where(word_meanings: {hsklevel: hskleveles})
+      .order(:hsklevel, :pinyin)
       .page(params[:page])
     else
       # 学習済み単語のみじゃない場合は、left joinでつなぐ
-      @words = WordMeaning.select("word_meanings.id, words.word AS tango, words.pinyin AS pinyin, word_meanings.meaning, word_meanings.level, A.word_meaning_id")
+      @words = WordMeaning.select("word_meanings.id, words.word AS tango, words.pinyin AS pinyin, word_meanings.meaning, word_meanings.hsklevel, A.word_meaning_id")
       .joins(:word)
       .joins("
                 LEFT JOIN (
@@ -32,13 +33,14 @@ class StudyController < ApplicationController
                 ON A.word_meaning_id = word_meanings.id
                 AND A.user_id = #{current_user.id}
               ")
-      .where(word_meanings: {level: hskleveles})
+      .where(word_meanings: {hsklevel: hskleveles})
+      .order(:hsklevel, :pinyin)
       .page(params[:page])
     end
   end
 
   def show
-    @word = Word.joins(:word_meanings).select('word_meanings.id, word, pinyin, meaning, level').find_by(word_meanings: {id: params[:id]})
+    @word = Word.joins(:word_meanings).select('word_meanings.id, word, pinyin, meaning, hsklevel').find_by(word_meanings: {id: params[:id]})
     @examples = WordMeaning.left_joins(:studied_words).select("studied_words.id, studied_words.example").where(studied_words: {user_id: current_user.id}, id: params[:id])
   end
 
