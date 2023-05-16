@@ -19,3 +19,4 @@ require("channels")
 import "./multiple_choice_question"
 import "./study_index"
 import "./study_show"
+import "./fill_in_the_blank_questions"

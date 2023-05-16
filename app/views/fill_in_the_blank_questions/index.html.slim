@@ -1,6 +1,6 @@
-h1 四択テスト
+h1 穴埋めテスト
 
-section#question-params.user-wrap(style="display: block;")
+section#fb_question-params.user-wrap(style="display: block;")
   h3 出題条件
   .form-group
     p
@@ -25,11 +25,6 @@ section#question-params.user-wrap(style="display: block;")
         label.form-check-label 6
   .form-group
     p
-      .form-check
-        input.form-check-input#chk-studied type="checkbox"
-        label.form-check-label 学習済み単語
-  .form-group
-    p
       span 問題数
       .form-check.form-check-inline 
         input.form-check-input#radio1a type="radio" name="radio1" value="10"
@@ -46,22 +41,18 @@ section#question-params.user-wrap(style="display: block;")
       .form-check.form-check-inline
         input.form-check-input#radio1e type="radio" name="radio1" value="100"
         label.form-check-label 100
-  button.btn.btn-primary#startbutton 開始
+  button.btn.btn-primary#fb_startbutton 開始
 
-section#question.user-wrap(style="display: none;")
-  p.display-6#pinyin pinyin
-  p.display-3#word word
-  div.user-wrap(style="display: flex; justify-content: space-between;")
-    button.btn.btn-outline-dark.choice-button#choice1 選択肢1
-    button.btn.btn-outline-dark.choice-button#choice2 選択肢2
-    button.btn.btn-outline-dark.choice-button#choice3 選択肢3
-    button.btn.btn-outline-dark.choice-button#choice4 選択肢4
+section#fb_question.user-wrap{style="display: none;"}
+  .d-flex.flex-column.align-items-center.justify-content-center.h-100
+    p.display-3#blank_example
+      | blank
+    div.mb-3
+      input#fill_blank.(style="width: 200px;")
+      button#fb_nextbutton.btn.btn-info 次へ
 
-section#question-next.user-wrap(style="display: none;")
-  button.btn.btn-primary#nextbutton 次へ
-
-section#question-end.user-wrap(style="display: none;")
-  table.table.table-striped
+section#fb_question-end.user-wrap(style="display: none;")
+  table.table.table-striped.table-responsive
     thead
       tr
         th scope="col" No.
@@ -69,5 +60,5 @@ section#question-end.user-wrap(style="display: none;")
         th scope="col" 問題
         th scope="col" 意味
         th scope="col" 正誤
-    tbody#answer-table
-  = link_to "終了", root_path, class: "btn btn-primary", id: "#nextbutton"
+    tbody#fb_answer-table
+  = link_to "終了", root_path, class: "btn btn-primary", id: "#fb_nextbutton"
