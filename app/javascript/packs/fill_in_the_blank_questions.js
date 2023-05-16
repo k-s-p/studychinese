@@ -112,7 +112,6 @@ function answer_add(judge){
     td.style.color = "green"
   }else{
     td.style.color = "red"
-
   }
   tr.appendChild(td);
   answer_tb.appendChild(tr);

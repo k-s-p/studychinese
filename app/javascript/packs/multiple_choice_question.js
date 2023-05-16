@@ -142,6 +142,12 @@ function answer_add(judge){
   td.textContent = judge
   tr.appendChild(td);         //trにtdを追加
 
+  if(judge == "〇"){
+    tr.style.color = "green"
+  }else{
+    tr.style.color = "red"
+  }
+
   //完成したtrをtableに追加
   answer_tb.appendChild(tr);  
 };
