@@ -64,6 +64,100 @@ class StudyController < ApplicationController
     end
   end
 
+  # 単語詳細で次の単語ボタンを押したときの処理
+  def next_word
+    # 検索条件を取得
+    hskleveles = params[:hsklevel] ? params[:hsklevel] : "1"
+    studied = params[:studied] ? params[:studied] : "0"
+
+    # 学習済み単語のみ検索の場合は、inner joinでつなぐ
+    if studied == "1"
+      @word = WordMeaning.select("word_meanings.id, words.word AS tango, words.pinyin AS pinyin, word_meanings.meaning, word_meanings.hsklevel, A.word_meaning_id")
+      .joins(:word)
+      .joins("
+                INNER JOIN (
+                  SELECT studied_words.word_meaning_id, studied_words.user_id
+                  FROM studied_words
+                  GROUP BY studied_words.word_meaning_id, studied_words.user_id
+                ) AS A 
+                ON A.word_meaning_id = word_meanings.id
+                AND A.user_id = #{current_user.id}
+              ")
+      .where(word_meanings: {hsklevel: hskleveles, id: (params[:word_id].to_i+1)..})
+      .order(:hsklevel, :pinyin)
+      .first
+    else
+      # 学習済み単語のみじゃない場合は、left joinでつなぐ
+      @word = WordMeaning.select("word_meanings.id, words.word AS tango, words.pinyin AS pinyin, word_meanings.meaning, word_meanings.hsklevel, A.word_meaning_id")
+      .joins(:word)
+      .joins("
+                LEFT JOIN (
+                  SELECT studied_words.word_meaning_id, studied_words.user_id
+                  FROM studied_words
+                  GROUP BY studied_words.word_meaning_id, studied_words.user_id
+                ) AS A 
+                ON A.word_meaning_id = word_meanings.id
+                AND A.user_id = #{current_user.id}
+              ")
+      .where(word_meanings: {hsklevel: hskleveles, id: (params[:word_id].to_i+1)..})
+      .order(:hsklevel, :pinyin)
+      .first
+    end
+
+    if @word
+      redirect_to study_path(@word.id)
+    else
+      redirect_to study_path(params[:word_id])
+    end
+  end
+
+    # 単語詳細で前の単語ボタンを押したときの処理
+    def previous_word
+      # 検索条件を取得
+      hskleveles = params[:hsklevel] ? params[:hsklevel] : "1"
+      studied = params[:studied] ? params[:studied] : "0"
+  
+      # 学習済み単語のみ検索の場合は、inner joinでつなぐ
+      if studied == "1"
+        @word = WordMeaning.select("word_meanings.id, words.word AS tango, words.pinyin AS pinyin, word_meanings.meaning, word_meanings.hsklevel, A.word_meaning_id")
+        .joins(:word)
+        .joins("
+                  INNER JOIN (
+                    SELECT studied_words.word_meaning_id, studied_words.user_id
+                    FROM studied_words
+                    GROUP BY studied_words.word_meaning_id, studied_words.user_id
+                  ) AS A 
+                  ON A.word_meaning_id = word_meanings.id
+                  AND A.user_id = #{current_user.id}
+                ")
+        .where(word_meanings: {hsklevel: hskleveles, id: ...params[:word_id].to_i})
+        .order(:hsklevel, :pinyin)
+        .last
+      else
+        # 学習済み単語のみじゃない場合は、left joinでつなぐ
+        @word = WordMeaning.select("word_meanings.id, words.word AS tango, words.pinyin AS pinyin, word_meanings.meaning, word_meanings.hsklevel, A.word_meaning_id")
+        .joins(:word)
+        .joins("
+                  LEFT JOIN (
+                    SELECT studied_words.word_meaning_id, studied_words.user_id
+                    FROM studied_words
+                    GROUP BY studied_words.word_meaning_id, studied_words.user_id
+                  ) AS A 
+                  ON A.word_meaning_id = word_meanings.id
+                  AND A.user_id = #{current_user.id}
+                ")
+        .where(word_meanings: {hsklevel: hskleveles, id: ...params[:word_id].to_i})
+        .order(:hsklevel, :pinyin)
+        .last
+      end
+  
+      if @word
+        redirect_to study_path(@word.id)
+      else
+        redirect_to study_path(params[:word_id])
+      end
+    end
+
   private
 
   def example_params

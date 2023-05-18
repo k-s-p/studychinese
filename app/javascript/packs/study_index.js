@@ -4,6 +4,7 @@ document.addEventListener('turbolinks:load', function(){
   document.querySelectorAll('.study_button').forEach(function(a){
     a.addEventListener('click', set_localstorage);
   });
+  document.querySelector("#Study_searchbutton").addEventListener('click', hsklevel_check)
 });
 
 // 学習ボタンを押したら、その時のページと検索条件をローカルストレージに保存しておく
@@ -19,4 +20,29 @@ function set_localstorage(){
   };
   // jsonで保存
   localStorage.setItem("study_search_param", JSON.stringify(keyword));
+};
+
+// hskレベルがチェックされてるか確認
+function hsklevel_check(){
+  const hsk_checkbox = document.querySelectorAll('input[name="hsklevel[]"]:checked');
+
+  // チェックされたチェックボックスの値を格納する配列を初期化
+  var checkedValues = [];
+  // チェックされたチェックボックスの値を配列に追加
+  for (var i = 0; i < hsk_checkbox.length; i++) {
+    if (hsk_checkbox[i].checked) {
+      checkedValues.push(hsk_checkbox[i].value);
+    }
+  }
+
+  if(checkedValues.length>0){
+    // 選択された値をパラメーターに変換
+    var params = '?' + checkedValues.map(function(val) {
+      return 'hsklevel[]=' + encodeURIComponent(val);
+    }).join('&');
+    // ページに遷移
+    window.location.href = '/study' + params;
+  }else{
+    window.alert("hskレベルを選択してください。");
+  }
 };

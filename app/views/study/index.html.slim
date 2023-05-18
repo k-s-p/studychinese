@@ -20,7 +20,7 @@ div.border.mb-4
     .form-group.mb-3
       = f.check_box :studied, {checked: params[:studied] == "1"}
       = f.label "学習済み単語", class: "mx-1"
-    =f.submit "検索", class: "btn btn-primary", id: "Study_searchbutton"
+    button.btn.btn-primary#Study_searchbutton type="button" 検索
 
 
 .mb-3
@@ -28,7 +28,7 @@ div.border.mb-4
   = page_entries_info @words
   p#now_page.user-wrap(style="display: none;")
     =@words.current_page
-table.table.table-hover 
+table.table.table-hover
   thead.thead-default 
     tr 
       th= Word.human_attribute_name(:word)

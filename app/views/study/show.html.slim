@@ -6,20 +6,13 @@ button.btn.btn-secondary.mt-3#study_back_button 戻る
   .row.justify-content-center
     .col-md-8
       h1.text-center.pt-3 単語詳細
-      table.table.table-hover 
-        tbody 
-          tr 
-            th= Word.human_attribute_name(:word)
-            td= @word.word
-          tr  
-            th= Word.human_attribute_name(:pinyin)
-            td= @word.pinyin 
-          tr 
-            th= WordMeaning.human_attribute_name(:meaning)
-            td= @word.meaning 
-          tr 
-            th= WordMeaning.human_attribute_name(:hsklevel)
-            td= @word.hsklevel 
+      .text-center
+        p.display-6 =@word.pinyin
+        p.display-2 =@word.word
+        p.display-6 ="意味：#{@word.meaning}"
+        p ="HSKレベル:#{@word.hsklevel}"
+        p#word_id.user-wrap(style="display: none;")
+          =@word.id
 
       = form_with url: study_register_path,local: true, method: 'post' do |form|
         .card.my-4
@@ -45,3 +38,7 @@ button.btn.btn-secondary.mt-3#study_back_button 戻る
                 label.form-label 例文2
                 = form.text_field :example2, class: 'form-control'
             = form.submit '登録', class: 'btn btn-primary text-white d-block mx-auto mt-3'
+
+  .d-flex.justify-content-between
+    button.btn.btn-primary.mt-3#study_previous_button 前の単語
+    button.btn.btn-primary.mt-3#study_next_button 次の単語
