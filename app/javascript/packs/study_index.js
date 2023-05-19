@@ -10,12 +10,13 @@ document.addEventListener('turbolinks:load', function(){
 // 学習ボタンを押したら、その時のページと検索条件をローカルストレージに保存しておく
 function set_localstorage(){
   const hsklevels = document.querySelectorAll('input[name="hsklevel[]"]:checked'); // hskレベル選択のチェックボックス
-  const studied = document.querySelector('input[name="studied"]:checked'); //学習済みチェックボックス
+  const studied_elem = document.getElementById("studied"); //学習済みチェックボックス
+  let studied = (studied_elem.checked) ? "1" : "0";
   const now_page_elem = document.querySelector('#now_page'); //現在のページ番号
 
   const keyword = {
     hsklevel: Array.from(hsklevels).map(hsklevel => hsklevel.value),
-    studied: Boolean(studied),
+    studied: studied,
     page: now_page_elem.innerText
   };
   // jsonで保存
@@ -36,12 +37,15 @@ function hsklevel_check(){
   }
 
   if(checkedValues.length>0){
+    // 学習済みを取得
+    const studied_elem = document.getElementById("studied");
+    let studied = (studied_elem.checked) ? "1" : "0";
     // 選択された値をパラメーターに変換
     var params = '?' + checkedValues.map(function(val) {
       return 'hsklevel[]=' + encodeURIComponent(val);
     }).join('&');
     // ページに遷移
-    window.location.href = '/study' + params;
+    window.location.href = '/study' + params + "&studied=" + studied;
   }else{
     window.alert("hskレベルを選択してください。");
   }
