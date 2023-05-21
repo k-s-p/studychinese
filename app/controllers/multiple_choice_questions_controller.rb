@@ -12,9 +12,9 @@ class MultipleChoiceQuestionsController < ApplicationController
 
     # データ取得
     if studied === "1"
-      words = Word.joins(word_meanings: :studied_words).select('word_meanings.id, word, pinyin, meaning, hsklevel').distinct.where(word_meanings: {hsklevel: study_level}, studied_words: {user_id: current_user.id}).order("RAND()").limit(study_limit)
+      words = Word.joins(word_meanings: :studied_words).select('word_meanings.id, word, pinyin, meaning, hsklevel').distinct.where(word_meanings: {hsklevel: study_level}, studied_words: {user_id: current_user.id}).order("RANDOM()").limit(study_limit)
     else
-      words = Word.joins(:word_meanings).select('word_meanings.id, word, pinyin, meaning, hsklevel').where(word_meanings: {hsklevel: study_level}).order("RAND()").limit(study_limit)
+      words = Word.joins(:word_meanings).select('word_meanings.id, word, pinyin, meaning, hsklevel').where(word_meanings: {hsklevel: study_level}).order("RANDOM()").limit(study_limit)
     end
     meanings = WordMeaning.select('id, meaning').where(hsklevel: study_level)
     meanings_len = meanings.length

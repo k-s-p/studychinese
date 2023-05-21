@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2023_05_16_023214) do
 
-  create_table "studied_words", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "studied_words", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "word_meaning_id", null: false
     t.string "example"
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 2023_05_16_023214) do
     t.index ["word_meaning_id"], name: "index_studied_words_on_word_meaning_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -35,7 +38,7 @@ ActiveRecord::Schema.define(version: 2023_05_16_023214) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "word_meanings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "word_meanings", force: :cascade do |t|
     t.string "meaning", null: false
     t.integer "hsklevel", null: false
     t.bigint "word_id", null: false
@@ -44,7 +47,7 @@ ActiveRecord::Schema.define(version: 2023_05_16_023214) do
     t.index ["word_id"], name: "index_word_meanings_on_word_id"
   end
 
-  create_table "words", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "words", force: :cascade do |t|
     t.string "word", null: false
     t.string "pinyin", null: false
     t.datetime "created_at", precision: 6, null: false

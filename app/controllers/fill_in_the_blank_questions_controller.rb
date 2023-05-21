@@ -10,7 +10,7 @@ class FillInTheBlankQuestionsController < ApplicationController
     study_limit = params[:question_num] # 問題数
 
     # 指定したhskレベルのデータを全部取得して、ちゃんと単語が含まれている例文だけを問題として扱う
-    words = Word.joins(word_meanings: :studied_words).select('word_meanings.id, word, pinyin, meaning, hsklevel, example').where(word_meanings: {hsklevel: study_level}, studied_words: {user_id: current_user.id}).order("RAND()")
+    words = Word.joins(word_meanings: :studied_words).select('word_meanings.id, word, pinyin, meaning, hsklevel, example').where(word_meanings: {hsklevel: study_level}, studied_words: {user_id: current_user.id}).order("RANDOM()")
 
     #問題用ハッシュを作成
     problems = {}
