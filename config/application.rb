@@ -23,6 +23,6 @@ module Studychinese
     # config.i18n.load_path += Dir[Rails.root.join('config/locales/*.yml').to_s]
 
     # デプロイするサービスのホストを追加する
-    config.hosts << 'xxx.onrender.com'
+    config.hosts << 'https://studychinese.onrender.com'
   end
 end
