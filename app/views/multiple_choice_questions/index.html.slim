@@ -23,11 +23,18 @@ section#question-params.user-wrap(style="display: block;")
       .form-check.form-check-inline
         input.form-check-input.hsklevel#chk6 type="checkbox" value="6"
         label.form-check-label 6
-  .form-group
-    p
-      .form-check
-        input.form-check-input#chk-studied type="checkbox"
-        label.form-check-label 学習済み単語
+  - if user_signed_in?
+    .form-group
+      p
+        .form-check
+          input.form-check-input#chk-studied type="checkbox"
+          label.form-check-label 学習済み単語
+  - else
+    .form-group(style="display: none;")
+      p
+        .form-check
+          input.form-check-input#chk-studied type="checkbox"
+          label.form-check-label 学習済み単語
   .form-group
     p
       span 問題数
